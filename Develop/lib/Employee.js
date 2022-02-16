@@ -1,7 +1,3 @@
-const Engineer = require("../lib/Engineer");
-const Intern = require("../lib/Intern");
-const Manager = require("../lib/Manager");
-
 class Employee {
     constructor(name, id, email,){
         this.name = name;
