@@ -1,7 +1,6 @@
-// const inquirer = require("inquirer");
-// const Engineer = require("./Engineer");
-// const Intern = require("./Intern");
-// const Manager = require("./Manager");
+const Engineer = require("../lib/Engineer");
+const Intern = require("../lib/Intern");
+const Manager = require("../lib/Manager");
 
 class Employee {
     constructor(name, id, email,){
@@ -20,7 +19,6 @@ class Employee {
     }
     getRole() {
         return (Employee);
-        console.log(Employee);
     };
     
 }
