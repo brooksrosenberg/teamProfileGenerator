@@ -19,6 +19,6 @@ describe("school from getSchool", () => {
     it("Caan  get school via getSchool()", () => {
         const testEx = "Boston University";
         const newEmployee = new Intern("Tom", 50, "mail@email.com",  testEx);
-        expect(newEmployee.getRole()).toBe(testEx);        
+        expect(newEmployee.getSchool()).toBe(testEx);        
 })
 });
