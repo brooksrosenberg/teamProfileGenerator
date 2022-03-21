@@ -1,6 +1,23 @@
-const inquirer = require("inquirer");
+const team = require('../index')
+const hmtl = [];
 
-function switchRole(){
+hmtl.push(team
+    .filter(employee => employee.switchRole() === "Manager")
+    .map(manager => managerRole(manager))
+    );
+hmtl.push(team
+     .filter(employee => employee.switchRole() === "Engineer")
+    .map(engineer => engineerRole(engineer))
+    .join ("")
+    );
+hmtl.push(team
+     .filter(employee => employee.switchRole() === "Intern")
+     .map(intern => internRole(intern))
+     .join ("")
+    );
+
+function switchRole(data){
+    console.log(data);
     switch (switchRole){
         case "Manager":
             return managerRole = [
@@ -20,7 +37,7 @@ function switchRole(){
       </div>`
     ];
     case "Engineer":
-        return EngineerRole = [
+        return engineerRole = [
         `<div>
         <div class="card" style="width: 18rem;">
             <div class="card-header">
@@ -37,7 +54,7 @@ function switchRole(){
           </div>`
     ];
     case "Intern":
-        return InternRole = [
+        return internRole = [
         `<div>
         <div class="card" style="width: 18rem;">
             <div class="card-header">
@@ -55,7 +72,9 @@ function switchRole(){
     ];
 };
 };
-function generateMarkdown(data){
+
+
+module.exports = (data) => {
     return `
 
     <!DOCTYPE html>
@@ -76,7 +95,7 @@ function generateMarkdown(data){
         </div>
       </div>
       
-    <div>${switchRole}</div>
+    <div>${switchRole(data)}</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script>src="index.js"</script>
@@ -85,4 +104,9 @@ function generateMarkdown(data){
     `
 }
 
-module.exports = generateMarkdown;
+// module.exports = generateMarkdown{data};
+
+
+/// put all in function => team
+// move push down
+// turn cases into functions

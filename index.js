@@ -1,14 +1,16 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 
-const Engineer = require("./Develop/lib/Engineer");
-const Manager = require("./Develop/lib/Manager");
-const Intern = require("./Develop/lib/Intern");
+const Engineer = require("./lib/Engineer");
+const Manager = require("./lib/Manager");
+const Intern = require("./lib/Intern");
+const generateMarkdown = require('./utils/generateMarkdown');
+const { moduleExpression } = require('@babel/types');
 
 
 const team = [];
 
-
+function init() {
 function addManager() {
     inquirer.prompt([
 
@@ -33,7 +35,7 @@ function addManager() {
             message: "What is the team manager's office number? ",
         },
 
-    ]).then(function(data){
+    ]).then(function (data) {
         console.log(data);
         //make new manager with data
         const manager = new Manager(data.managerName, data.managerId, data.managerEmail, data.managerOfficeNumber);
@@ -59,13 +61,15 @@ function addToTeam() {
         console.log(data.memberType);
         // look into a switch case
         switch (role) {
-            case "Engineer": 
-                    return addEngineer();
+            case "Engineer":
+                return addEngineer();
+                break;
             case "Intern":
-                    return addIntern(); 
-            case "no more members to add":
-            break;
-        } 
+                return addIntern();
+                break;
+            default:
+                writeFile();
+        }
     })
 };
 
@@ -93,15 +97,15 @@ function addEngineer() {
             message: "What is the engineer's Github? ",
         },
 
-    ]).then(function(data){
+    ]).then(function (data) {
         console.log(data);
-         //make new engineer with data
-         const engineer = new Engineer(data.engineerName, data.engineerId, data.engineerEmail, data.engineerGithub);
-         //push new engineer to team array
-         team.push(engineer);
-         console.log(team);
-         //call addToTeam function
-      addToTeam();
+        //make new engineer with data
+        const engineer = new Engineer(data.engineerName, data.engineerId, data.engineerEmail, data.engineerGithub);
+        //push new engineer to team array
+        team.push(engineer);
+        console.log(team);
+        //call addToTeam function
+        addToTeam();
     })
 };
 
@@ -129,7 +133,7 @@ function addIntern() {
             message: "Where does the intern go to school? ",
         },
 
-    ]).then(function(data){
+    ]).then(function (data) {
         console.log(data);
         //make new engineer with data
         const intern = new Intern(data.internName, data.internId, data.internEmail, data.internSchool);
@@ -144,17 +148,26 @@ function addIntern() {
 
 //create function to write file
 function writeFile() {
-    fs.appendFile("./Develop/dist/.index.html"), data, (err) =>
-    err ? console.log(err) : console.log('You have successfully created an HTML file!')}
+    //console.log(team);
+    fs.writeFile("./Develop/dist/.index.html", generateMarkdown(team), (err) => {
+        err ? console.log(err) : console.log('You have successfully created an HTML file!')
+    })
+}
 
-// // TODO: Create a function to initialize app
-addManager()
-.then((team) => {
-    return generateMarkdown(team);
-})
-.then(createdHTML => {
-    return writeFile(createdHTML); 
-})
-.catch(err => {
-    console.log(err);
-});
+// TODO: Create a function to initialize app
+
+
+    addManager()
+        // .then((team) => {
+        //     return generateMarkdown(team);
+        // })
+        // .then(createdHTML => {
+        //     return writeFile(createdHTML);
+        // })
+        // .catch(err => {
+        //     console.log(err);
+        // });
+}
+module.exports = index.js;
+
+init();
