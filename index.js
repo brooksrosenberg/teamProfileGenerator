@@ -1,12 +1,10 @@
-const fs = require('fs');
-const inquirer = require('inquirer');
+const fs = require("fs");
+const inquirer = require("inquirer");
 
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
-const generateMarkdown = require('./utils/generateMarkdown');
-const { moduleExpression } = require('@babel/types');
-
+const generateTeam = require("./utils/generateMarkdown");
 
 const team = [];
 
@@ -46,7 +44,6 @@ function addManager() {
         addToTeam();
     })
 };
-
 
 function addToTeam() {
     inquirer.prompt([
@@ -145,17 +142,15 @@ function addIntern() {
     })
 };
 
-
 //create function to write file
 function writeFile() {
-    //console.log(team);
-    fs.writeFile("./Develop/dist/.index.html", generateMarkdown(team), (err) => {
+    // console.log(team);
+    fs.writeFile("./dist/.index.html", generateTeam(team), (err) => {
         err ? console.log(err) : console.log('You have successfully created an HTML file!')
     })
 }
 
 // TODO: Create a function to initialize app
-
 
     addManager()
         // .then((team) => {
@@ -168,6 +163,30 @@ function writeFile() {
         //     console.log(err);
         // });
 }
-module.exports = index.js;
 
+// function init() {
+//   inquirer
+//     .prompt([
+//       {
+//         type: "input",
+//         name: "managerName",
+//         message: "What is the team manager's name? ",
+//       },
+//       {
+//         type: "input",
+//         name: "managerId",
+//         message: "What is the team manager's id? ",
+//       },
+//       {
+//         type: "input",
+//         name: "managerEmail",
+//         message: "What is the team manager's email? ",
+//       }
+//     ])
+//     .then((answers) => {
+//       console.log(answers);
+//     });
+// }
 init();
+
+//module.exports = index.js;
