@@ -1,9 +1,4 @@
-// const team = require("../index");
 
-
-/// put all in function => team
-// move push down
-// turn cases into functions
 
 const generateTeam = (team) => {
   //generate Manager function
